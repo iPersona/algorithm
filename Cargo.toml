@@ -1,0 +1,8 @@
+[package]
+name = "algorithm"
+version = "0.1.0"
+authors = ["ipersona <freedom2028@gmail.com>"]
+
+[dependencies]
+ndarray = "0.11.0"
+quickersort = "3.0.1"
