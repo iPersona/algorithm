@@ -42,7 +42,7 @@ fn calc_common_substring_len(source: &str, candidate: &str) -> u32 {
     largest_sublen
 }
 
-pub fn print_char_table(
+fn print_char_table(
     char_table: &Array2<u32>,
     candidate: &str,
     source: &str
@@ -70,23 +70,3 @@ pub fn print_char_table(
     }
     println!("=====================================");
 }
-
-
-
-
-#[test]
-fn test_substring() {
-    let source = "hish";
-    let candidates = vec!["vista", "fish", "hosh"]; // 'hosh' for testing equality of first charactor.
-    let best_matches = get_longest_common_substring(source, &candidates);
-    assert_eq!(best_matches, vec!["fish"]);
-}
-
-#[test]
-fn test_substring_chinese() {
-    let source = "我是小明";
-    let candidates = vec!["他非小明", "他不是小明", "我非小明"]; 
-    let best_matches = get_longest_common_substring(source, &candidates);
-    assert_eq!(best_matches, vec!["他不是小明"]);
-}
-

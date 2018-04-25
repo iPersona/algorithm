@@ -90,43 +90,43 @@ pub fn calc_bag_problem_table<'a>(items: &'a Vec<Item>) -> (Array2<Bag>, Vec<u32
     (bag_table, bag_size_list, items_name_list)
 }
 
-pub fn test_bag() {
-    let mut items: Vec<Item> = Vec::new();
-    items.push(Item::new("Guitar", 1, 1500));
-    items.push(Item::new("Audio Electronics", 4, 3000));
-    items.push(Item::new("Notebook", 3, 2000));
-    items.push(Item::new("iPhone", 1, 2000));
+// fn test_bag() {
+//     let mut items: Vec<Item> = Vec::new();
+//     items.push(Item::new("Guitar", 1, 1500));
+//     items.push(Item::new("Audio Electronics", 4, 3000));
+//     items.push(Item::new("Notebook", 3, 2000));
+//     items.push(Item::new("iPhone", 1, 2000));
 
-    let (bag_table, bag_size_list, items_name_list) = calc_bag_problem_table(&items);
-    print_bag_table(&bag_table, &bag_size_list, &items_name_list);
-}
+//     let (bag_table, bag_size_list, items_name_list) = calc_bag_problem_table(&items);
+//     print_bag_table(&bag_table, &bag_size_list, &items_name_list);
+// }
 
-pub fn print_bag_table(
-    bag_table: &Array2<Bag>,
-    bag_size_list: &Vec<u32>,
-    items_name_list: &Vec<&str>,
-) {
-    let col_width = 30;
+// fn print_bag_table(
+//     bag_table: &Array2<Bag>,
+//     bag_size_list: &Vec<u32>,
+//     items_name_list: &Vec<&str>,
+// ) {
+//     let col_width = 30;
 
-    let mut title = format!("{: <1$}|\t", "", col_width);
-    for size in bag_size_list {
-        let info = format!("{: <1$}|\t", size, col_width);
-        title.push_str(&info);
-    }
-    println!("{}", title);
-    for i in 0..bag_table.rows() {
-        let mut row = "".to_string();
-        for j in 0..bag_table.cols() {
-            let info = format!(
-                "{}$, {:?}",
-                bag_table[[i, j]].value,
-                bag_table[[i, j]].items
-            );
-            row.push_str(&format!("{: <1$}|\t", info, col_width));
-        }
-        println!("{: <2$}|\t{}", items_name_list[i], row, col_width);
-    }
-}
+//     let mut title = format!("{: <1$}|\t", "", col_width);
+//     for size in bag_size_list {
+//         let info = format!("{: <1$}|\t", size, col_width);
+//         title.push_str(&info);
+//     }
+//     println!("{}", title);
+//     for i in 0..bag_table.rows() {
+//         let mut row = "".to_string();
+//         for j in 0..bag_table.cols() {
+//             let info = format!(
+//                 "{}$, {:?}",
+//                 bag_table[[i, j]].value,
+//                 bag_table[[i, j]].items
+//             );
+//             row.push_str(&format!("{: <1$}|\t", info, col_width));
+//         }
+//         println!("{: <2$}|\t{}", items_name_list[i], row, col_width);
+//     }
+// }
 
 fn update_largest_value(
     table: &mut Array2<Bag>,
@@ -192,7 +192,7 @@ fn get_bag_size_index(bag_size_list: &Vec<u32>, value: &u32) -> Option<usize> {
 ///
 /// Here we use the Full Combination Algorithm to generate the bag size list.
 /// 
-fn gen_bag_size_list(items: &Vec<Item>) -> Vec<u32> {
+pub fn gen_bag_size_list(items: &Vec<Item>) -> Vec<u32> {
     let len = items.len();
     let total: usize = 1 << len;
     let mut all_size_list = Vec::new();
@@ -220,42 +220,4 @@ fn gen_bag_size_list(items: &Vec<Item>) -> Vec<u32> {
 
     quickersort::sort(&mut all_size_list);
     all_size_list
-}
-
-#[test]
-fn test_gen_bag_size_list_no_repeat() {
-    let mut items: Vec<Item> = Vec::new();
-    items.push(Item::new("Guitar", 1, 1500));
-    items.push(Item::new("Audio Electronics", 4, 3000));
-    items.push(Item::new("Notebook", 3, 2000));
-
-    let size_list = gen_bag_size_list(&items);
-    assert_eq!(size_list, vec![1, 3, 4]);
-}
-
-#[test]
-fn test_gen_bag_size_list_partly_repart() {
-    let mut items: Vec<Item> = Vec::new();
-    items.push(Item::new("Guitar", 1, 1500));
-    items.push(Item::new("Audio Electronics", 1, 3000));
-    items.push(Item::new("Notebook", 3, 2000));
-
-    let size_list = gen_bag_size_list(&items);
-    // assert_eq!(size_list, vec![1, 3, 4]);
-    println!("size_list: {:?}", size_list);
-}
-
-#[test]
-fn test_bag_problem() {
-    let mut items: Vec<Item> = Vec::new();
-    items.push(Item::new("Guitar", 1, 1500));
-    items.push(Item::new("Audio Electronics", 4, 3000));
-    items.push(Item::new("Notebook", 3, 2000));
-
-    let bag_size = 4;
-    let best_value_items = bag_problem(&items, bag_size);
-    assert_eq!(
-        best_value_items,
-        vec!["Guitar".to_owned(), "Notebook".to_owned()]
-    );
 }

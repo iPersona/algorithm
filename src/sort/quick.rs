@@ -33,10 +33,3 @@ pub fn quick_sort<T: PartialEq + PartialOrd>(source: &mut Vec<T>) {
     (*source).clear();
     source.append(&mut sort_array);
 }
-
-#[test]
-fn test_quick_sort_array() {
-    let mut source = vec![3, 2, 5, 1, 4];
-    quick_sort(&mut source);
-    assert_eq!(source, vec![1, 2, 3, 4, 5]);
-}

@@ -18,22 +18,3 @@ pub fn binary_search<T: PartialOrd + PartialEq>(source: &Vec<T>, target: &T) -> 
 
     false
 }
-
-#[test]
-fn test_array_found() {
-    let source = vec![1, 2, 3, 4, 5];
-    let target = 4;
-    let is_found = binary_search(&source, &target);
-    assert_eq!(is_found, true);
-}
-
-#[test]
-fn test_array_not_found() {
-    let source = vec![1, 2, 3, 4, 5];
-    let target = 6;
-    let is_found = binary_search(&source, &target);
-    assert_eq!(is_found, false);
-}
-
-
-

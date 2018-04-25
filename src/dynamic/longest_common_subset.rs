@@ -45,7 +45,7 @@ fn calc_common_subset_len(source: &str, candidate: &str) -> u32 {
     largest_sublen
 }
 
-pub fn print_char_table(char_table: &Array2<u32>, candidate: &str, source: &str) {
+fn print_char_table(char_table: &Array2<u32>, candidate: &str, source: &str) {
     let col_width = 2;
 
     let mut title = format!("{: <1$}\t", "", col_width);
@@ -70,18 +70,3 @@ pub fn print_char_table(char_table: &Array2<u32>, candidate: &str, source: &str)
     println!("=====================================");
 }
 
-#[test]
-fn test_subset() {
-    let source = "hish";
-    let candidates = vec!["vista", "fish", "hosh"]; // 'hosh' for testing equality of first charactor.
-    let best_matches = get_longest_common_subset(source, &candidates);
-    assert_eq!(best_matches, vec!["fish", "hosh"]);
-}
-
-#[test]
-fn test_subset_chinese() {
-    let source = "我是小明";
-    let candidates = vec!["他非小明", "他不是小明", "我非小明"];
-    let best_matches = get_longest_common_subset(source, &candidates);
-    assert_eq!(best_matches, vec!["他不是小明", "我非小明"]);
-}
